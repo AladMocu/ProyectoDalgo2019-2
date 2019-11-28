@@ -10,4 +10,8 @@ public class ProblemaA {
         }
         sc.close();
     }
+    /**
+     * Para resolver este problema usaremos la mejor implementacion conocida para el subarreglo recurrente mas largo conocida hasta el momento:
+     *  suffix tree , la cual tiene complejidad tanto temporal como espacial de n
+     */
 }
