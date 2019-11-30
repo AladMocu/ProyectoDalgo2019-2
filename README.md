@@ -1,3 +1,5 @@
+**LOC:**
+[![](https://tokei.rs/b1/github/AladMocu/ProyectoDalgo2019-2)](https://github.com/AladMocu/ProyectoDalgo2019-2)
 
 ## ProblemaA
 **Enunciado:**
