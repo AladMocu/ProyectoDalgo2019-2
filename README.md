@@ -39,3 +39,23 @@ polígono
 |--|--|
 |6 3 2 4 <br>1 1 2 5 6 3 <br>6 3 5 1 1 1 2 5 6 3 <br>10 12 6 5 <br>3 3 4 3 8 8 5 2 10 7 7 10 4 9 4 6 2 4 0 5 1 0 <br>10 12 5 7 <br>3 3 4 3 8 8 5 2 10 7 7 10 4 9 4 6 2 4 0 5 1 0 <br>10 12 3 5 <br>3 3 4 3 8 8 5 2 10 7 7 10 4 9 4 6 2 4 0 5 1 <br>0 0 0 0 0|1 <br>-1 <br>1 <br>-1 <br>0 |
 
+
+## REFERENCIA DE SOLUCION IMPLEMENTADA
+**Problema a:**
+
+    -https://xlinux.nist.gov/dads/HTML/longestCommonSubstring.html
+    -https://metacpan.org/pod/String::LCSS_XS
+    -https://metacpan.org/pod/Tree::Suffix
+    
+**Problema b:**
+
+    -https://algorithmist.com/wiki/Longest_Increasing_Subsequence
+    -https://web.piyushgarg.in/2017/06/longest-increasing-sub-sequence-longest.html
+    -https://stackoverflow.com/questions/22923646/number-of-all-longest-increasing-subsequences/22945390#22945390
+    
+**Problema c:**
+
+    -http://jedi.ks.uiuc.edu/~johns/raytracer/rtn/rtnv3n4.html#art22
+    -http://geomalgorithms.com/a03-_inclusion.html
+    -http://totologic.blogspot.com/2014/01/accurate-point-in-triangle-test.html
+    
