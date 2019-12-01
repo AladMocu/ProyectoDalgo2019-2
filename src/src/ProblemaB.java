@@ -15,15 +15,18 @@ public class ProblemaB {
         Scanner sc = new Scanner(System.in);
         while(sc.hasNext())
         {
+
         int arrsize  = Integer.parseInt(sc.nextLine().trim());
 
             ArrayList<Pair> pairs= new ArrayList<>();
             for (int i = 0; i <arrsize ; i++) {
                 String[] content= sc.nextLine().split(" ");
-                Pair t= new Pair(i,Integer.parseInt(content[1]),Integer.parseInt(content[2]));
+                Pair t= new Pair(i+1,Integer.parseInt(content[1]),Integer.parseInt(content[2]));
+                pairs.add(t);
             }
+            System.err.println("input array: "+pairs.toString());
             sortDecreasinY(pairs);
-            filterIncreasingX(pairs);
+
         }
         sc.close();
     }
@@ -36,6 +39,8 @@ public class ProblemaB {
         pairs.sort((o1, o2) -> {
             return o1.y <= o2.y ? 1 : -1;
         });
+        System.err.println("sorted: "+pairs.toString());
+        filterIncreasingX(pairs);
     }
 
     /**
@@ -43,11 +48,11 @@ public class ProblemaB {
      * Complejidad Temporal : O(nlogn)
      */
     private void filterIncreasingX(ArrayList<Pair> pairs) {
-        LongestIncreasingSubsequence((Pair[]) pairs.toArray(),pairs.size());
+        LongestIncreasingSubsequence( pairs.toArray(new Pair[pairs.size()]),pairs.size());
     }
 
-    // Binary search
-    static int GetCeilIndex(Pair arr[], int T[], int l, int r, Pair key) {
+    static int GetCeilIndex(Pair arr[], int T[], int l, int r, Pair key)
+    {
 
         while (r - l > 1) {
 
@@ -61,7 +66,8 @@ public class ProblemaB {
         return r;
     }
 
-    static int LongestIncreasingSubsequence(Pair arr[], int n) {
+    static int LongestIncreasingSubsequence(Pair arr[], int n)
+    {
 
         // Add boundary case, when array n is zero
         // Depend on smart pointers
@@ -73,11 +79,9 @@ public class ProblemaB {
 
         int prevIndices[] = new int[n];
 
-        // initialized with -1
         Arrays.fill(prevIndices, -1);
 
-        // it will always point to empty
-        // location
+
         int len = 1;
 
         for (int i = 1; i < n; i++) {
@@ -86,13 +90,14 @@ public class ProblemaB {
                 // new smallest value
                 tailIndices[0] = i;
 
-            else if (arr[i].x > arr[tailIndices[len - 1]].x) {
+            else if (arr[i].x >= arr[tailIndices[len - 1]].x) {
 
                 // arr[i] wants to extend
                 // largest subsequence
                 prevIndices[i] = tailIndices[len - 1];
                 tailIndices[len++] = i;
-            } else {
+            }
+            else {
 
                 // arr[i] wants to be a potential
                 // condidate of future subsequence
@@ -104,11 +109,25 @@ public class ProblemaB {
                 tailIndices[pos] = i;
             }
         }
+
+
+        if(len==1||len==0)
+        {
+            System.out.println(0);
+            System.out.println("*");
+            return len;
+        }
         System.out.println(len);
+        ArrayList<Integer> tempArray= new ArrayList<>();
+
 
         for (int i = tailIndices[len - 1]; i >= 0; i = prevIndices[i])
-            System.out.print(arr[i] + " ");
+            tempArray.add(0,arr[i].index);
 
+
+        for (Integer t:tempArray) {
+            System.out.print(t+" ");
+        }
         System.out.println();
 
         return len;
@@ -131,6 +150,10 @@ public class ProblemaB {
             x = px;
             y = py;
             index=pindex;
+        }
+        public String toString()
+        {
+            return index+":{"+x+","+y+"}";
         }
 
 
