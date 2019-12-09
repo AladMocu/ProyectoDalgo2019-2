@@ -17,6 +17,10 @@ public class ProblemaB {
         {
 
         int arrsize  = Integer.parseInt(sc.nextLine().trim());
+        if(arrsize==0)
+        {
+            return;
+        }
 
             ArrayList<Pair> pairs= new ArrayList<>();
             for (int i = 0; i <arrsize ; i++) {
@@ -24,7 +28,6 @@ public class ProblemaB {
                 Pair t= new Pair(i+1,Integer.parseInt(content[1]),Integer.parseInt(content[2]));
                 pairs.add(t);
             }
-            System.err.println("input array: "+pairs.toString());
             sortDecreasinY(pairs);
 
         }
@@ -39,7 +42,6 @@ public class ProblemaB {
         pairs.sort((o1, o2) -> {
             return o1.y <= o2.y ? 1 : -1;
         });
-        System.err.println("sorted: "+pairs.toString());
         filterIncreasingX(pairs);
     }
 
