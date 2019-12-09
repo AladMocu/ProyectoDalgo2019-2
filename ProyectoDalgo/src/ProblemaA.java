@@ -44,7 +44,7 @@ public class ProblemaA {
 
     /**
      * Returns the length of the longest common prefix of the <em>i</em>th
-     * smallest suffix and the <em>i</em>-1st smallest suffix.
+     * smallest suffix and the <em>i</em>-1st smallest suffix
      */
     public int lcp(int i) {
         if (i < 1 || i >= suffixes.length) throw new IllegalArgumentException();
