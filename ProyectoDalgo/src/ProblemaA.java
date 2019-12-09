@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -11,11 +12,13 @@ public class ProblemaA {
     /**
      * Creacion de la lista de sufijos a partir de la entrada inicial
      */
-    public ProblemaA(String text) {
+    public ProblemaA(NumberString text) {
         int n = text.length();
         this.suffixes = new Suffix[n];
         for (int i = 0; i < n; i++)
+        {
             suffixes[i] = new Suffix(text, i);
+        }
         Arrays.sort(suffixes);
     }
 
@@ -23,10 +26,10 @@ public class ProblemaA {
      * Clase que representa un sufijo
      */
     private static class Suffix implements Comparable<Suffix> {
-        private final String text;
+        private final NumberString text;
         private final int index;
 
-        private Suffix(String text, int index) {
+        private Suffix(NumberString text, int index) {
             this.text = text;
             this.index = index;
         }
@@ -37,8 +40,8 @@ public class ProblemaA {
         private int length() {
             return text.length() - index;
         }
-        private char charAt(int i) {
-            return text.charAt(index + i);
+        private int charAt(int i) {
+            return text.numberAt(index + i);
         }
 
 
@@ -57,8 +60,8 @@ public class ProblemaA {
             return this.length() - that.length();
         }
 
-        public String toString() {
-            return text.substring(index);
+        public NumberString toNumberString() {
+            return text.subNumberString(index);
         }
     }
 
@@ -99,8 +102,12 @@ public class ProblemaA {
             {
                 return;
             }
-            String toWork= sc.nextLine();
-            Work(toWork.replaceAll(" ",""));
+            String[] toWork= sc.nextLine().split(" ");
+            ArrayList<Integer> temp= new ArrayList<>();
+            for (int i = 0; i <toWork.length; i++) {
+               temp.add(Integer.parseInt(toWork[i]));
+            }
+            Work(new NumberString(temp));
         }
 
 
@@ -110,10 +117,10 @@ public class ProblemaA {
      * Metodo que calcula la maxima longitud de arreglo recurrente, haciendo uso de un Suffix Array y su respectivo LCP,
      * entendiendo que el valor maximo de dichho LCP representa de igualmanera el subarreglo recurrente mas largo por definicion de LCP
      */
-    public static void Work(String s)
+    public static void Work(NumberString s)
     {
         //solicitud de crear arbol de suficos con indice de terminacion de linea '#'
-        ProblemaA suffix = new ProblemaA(s+"#");
+        ProblemaA suffix = new ProblemaA(s);
         int lcpMax=0;
         for (int i = 1; i < s.length(); i++) {
             int lcpTemp=suffix.lcp(i);
@@ -123,6 +130,31 @@ public class ProblemaA {
             }
         }
         System.out.println(lcpMax);
+    }
+
+
+    public static class NumberString
+    {
+        ArrayList<Integer> numbers;
+        
+        public NumberString(ArrayList<Integer> pNumbers)
+        {
+            this.numbers=pNumbers;
+        }
+
+        public Integer numberAt(int i)
+        {
+            return numbers.get(i);
+        }
+        public NumberString subNumberString(int i)
+        {
+            return new NumberString((ArrayList<Integer>) numbers.subList(i,numbers.size()-1));
+        }
+
+        public int length()
+        {
+            return numbers.size();
+        }
     }
 
 }
