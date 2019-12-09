@@ -3,7 +3,14 @@ import java.util.Scanner;
 
 public class ProblemaA {
 
+    /**
+     * Arreglo donde se guardaran los sufijos generados
+     */
     private Suffix[] suffixes;
+
+    /**
+     * Creacion de la lista de sufijos a partir de la entrada inicial
+     */
     public ProblemaA(String text) {
         int n = text.length();
         this.suffixes = new Suffix[n];
@@ -12,6 +19,9 @@ public class ProblemaA {
         Arrays.sort(suffixes);
     }
 
+    /**
+     * Clase que representa un sufijo
+     */
     private static class Suffix implements Comparable<Suffix> {
         private final String text;
         private final int index;
@@ -20,6 +30,10 @@ public class ProblemaA {
             this.text = text;
             this.index = index;
         }
+
+        /**
+         * @return longitud de el sufijo almacenado en este nodo
+         */
         private int length() {
             return text.length() - index;
         }
@@ -27,8 +41,14 @@ public class ProblemaA {
             return text.charAt(index + i);
         }
 
+
+        /**
+         * compraracion entre sufijos, ordenadanolos lexicograficamente
+         * @param that
+         * @return
+         */
         public int compareTo(Suffix that) {
-            if (this == that) return 0;  // optimization
+            if (this == that) return 0;
             int n = Math.min(this.length(), that.length());
             for (int i = 0; i < n; i++) {
                 if (this.charAt(i) < that.charAt(i)) return -1;
@@ -43,14 +63,19 @@ public class ProblemaA {
     }
 
     /**
-     * Returns the length of the longest common prefix of the <em>i</em>th
-     * smallest suffix and the <em>i</em>-1st smallest suffix
+     * Retorna la longitud de el prefijo comun de el  <em>i</em> avo sufijo mas pequeño y el  iaco-1 sufijo mas pequeño
      */
     public int lcp(int i) {
         if (i < 1 || i >= suffixes.length) throw new IllegalArgumentException();
         return lcpSuffix(suffixes[i], suffixes[i-1]);
     }
 
+    /**
+     * Metodo auxiliar que calcula el LCP entre 2 suficos adyacentes
+     * @param s
+     * @param t
+     * @return
+     */
     private static int lcpSuffix(Suffix s, Suffix t) {
         int n = Math.min(s.length(), t.length());
         for (int i = 0; i < n; i++) {
@@ -58,6 +83,11 @@ public class ProblemaA {
         }
         return n;
     }
+
+
+    /**
+     * Metodo que se encarga de la lectura de la STDIN
+     */
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
@@ -76,9 +106,14 @@ public class ProblemaA {
 
     }
 
+    /**
+     * Metodo que calcula la maxima longitud de arreglo recurrente, haciendo uso de un Suffix Array y su respectivo LCP,
+     * entendiendo que el valor maximo de dichho LCP representa de igualmanera el subarreglo recurrente mas largo por definicion de LCP
+     */
     public static void Work(String s)
     {
-        ProblemaA suffix = new ProblemaA(s);
+        //solicitud de crear arbol de suficos con indice de terminacion de linea '#'
+        ProblemaA suffix = new ProblemaA(s+"#");
         int lcpMax=0;
         for (int i = 1; i < s.length(); i++) {
             int lcpTemp=suffix.lcp(i);

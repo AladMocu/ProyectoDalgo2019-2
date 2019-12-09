@@ -11,23 +11,35 @@ public class ProblemaB {
         readInput();
     }
 
+    /**
+     * Lectura de STDIN
+     */
     public void readInput() {
         Scanner sc = new Scanner(System.in);
         while(sc.hasNext())
         {
 
         int arrsize  = Integer.parseInt(sc.nextLine().trim());
+            /**
+             * Terminacion de ejecucion
+             */
         if(arrsize==0)
         {
             return;
         }
 
             ArrayList<Pair> pairs= new ArrayList<>();
+            /**
+             * Creacion de lista de parejas de datos
+             */
             for (int i = 0; i <arrsize ; i++) {
                 String[] content= sc.nextLine().split(" ");
                 Pair t= new Pair(i+1,Integer.parseInt(content[1]),Integer.parseInt(content[2]));
                 pairs.add(t);
             }
+            /**
+             * Se ordenan las listas de parejas de datos
+             */
             sortDecreasinY(pairs);
 
         }
@@ -68,15 +80,19 @@ public class ProblemaB {
         return r;
     }
 
+
+    /**
+     * Metodo que obtiene la subsecuencia mas larga de manera acendente haciendo uso de n busquedas binarias,
+     * remplazando los valores en caso de menor inicial
+     */
     static int LongestIncreasingSubsequence(Pair arr[], int n)
     {
 
-        // Add boundary case, when array n is zero
-        // Depend on smart pointers
+
 
         int tailIndices[] = new int[n];
 
-        // Initialized with 0
+        // se inicializa en 0
         Arrays.fill(tailIndices, 0);
 
         int prevIndices[] = new int[n];
@@ -89,22 +105,19 @@ public class ProblemaB {
         for (int i = 1; i < n; i++) {
             if (arr[i].x < arr[tailIndices[0]].x)
 
-                // new smallest value
+                // nuevo valor mas pequeño
                 tailIndices[0] = i;
 
             else if (arr[i].x >= arr[tailIndices[len - 1]].x) {
 
-                // arr[i] wants to extend
-                // largest subsequence
+                // arr[i] sugiere aumentar la subsequencia mas larga
                 prevIndices[i] = tailIndices[len - 1];
                 tailIndices[len++] = i;
             }
             else {
 
-                // arr[i] wants to be a potential
-                // condidate of future subsequence
-                // It will replace ceil value in
-                // tailIndices
+                // arr[i] sugiere ser un candidato de futura subsequencia
+                // Asi se remplasara el valor mas alto en los indices de la cola
                 int pos = GetCeilIndex(arr, tailIndices, -1, len - 1, arr[i]);
 
                 prevIndices[i] = tailIndices[pos - 1];
@@ -113,6 +126,9 @@ public class ProblemaB {
         }
 
 
+        /**
+         * Caso especial
+         */
         if(len==1||len==0)
         {
             System.out.println(0);
@@ -123,10 +139,16 @@ public class ProblemaB {
         ArrayList<Integer> tempArray= new ArrayList<>();
 
 
+        /**
+         * Lectura de la lista de indices
+         */
         for (int i = tailIndices[len - 1]; i >= 0; i = prevIndices[i])
             tempArray.add(0,arr[i].index);
 
 
+        /**
+         * Salida a STDOUT de los datos
+         */
         for (Integer t:tempArray) {
             System.out.print(t+" ");
         }
@@ -140,6 +162,9 @@ public class ProblemaB {
         ProblemaB b = new ProblemaB();
     }
 
+    /**
+     * Clase auxiliar que representa una pareja de datos
+     */
     static class Pair {
 
         public int x;
